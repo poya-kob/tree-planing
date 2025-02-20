@@ -1,3 +1,4 @@
+from PIL import Image, ImageDraw, ImageFont
 import qrcode
 import os
 from django.conf import settings
@@ -6,10 +7,30 @@ from django.shortcuts import render
 from .models import QRCode
 from reportlab.pdfgen import canvas
 from reportlab.lib.utils import ImageReader
-from django.core.files import File  # you need this somewhere
 
 QR_CODE_DIR = os.path.join(settings.MEDIA_ROOT, 'qrcodes')
 os.makedirs(QR_CODE_DIR, exist_ok=True)
+
+
+def get_persian_font(font_size=40):
+    """ تابعی برای یافتن یک فونت مناسب برای متن فارسی """
+    possible_fonts = [
+        "B Nazanin Bold-tamirpc.net.ttf",
+        "B Nazanin.ttf",  # اگر فونت روی سیستم موجود است
+        "BNazanin.ttf",
+        "Tahoma.ttf",
+        "Arial.ttf",
+    ]
+
+    for font_name in possible_fonts:
+        try:
+            font_path = os.path.join("C:\\Windows\\Fonts",
+                                     font_name) if os.name == "nt" else f"/usr/share/fonts/{font_name}"
+            return ImageFont.truetype(font_path, font_size)
+        except:
+            continue
+
+    return ImageFont.load_default()
 
 
 def generate_qrcodes(request):
@@ -19,16 +40,16 @@ def generate_qrcodes(request):
         qr_data = []
         domain = request.get_host()  # دریافت دامنه سایت
 
-        for _ in range(num_qr):
+        for i in range(1, num_qr + 1):
             qr = QRCode.objects.create()
-            qr_link = f"http://{domain}/{qr.unique_id}/"  # لینک داینامیک
+            qr_link = f"http://nojavaneshahr.ir/{qr.unique_id}/"  # لینک داینامیک
 
             # تولید QR Code
             qr_img = qrcode.QRCode(
-                version=10,  # سایز
-                error_correction=qrcode.constants.ERROR_CORRECT_H,  # سطح تصحیح خطا
-                box_size=20,  # ابعاد هر سلول QR
-                border=4  # مقدار استاندارد حاشیه
+                version=10,
+                error_correction=qrcode.constants.ERROR_CORRECT_H,
+                box_size=20,
+                border=4
             )
             qr_img.add_data(qr_link)
             qr_img.make(fit=True)
@@ -41,40 +62,52 @@ def generate_qrcodes(request):
 
             qr.save()
 
-            qr_data.append((qr_path, qr_link))  # ذخیره مسیر فایل برای PDF
+            qr_data.append((qr_path, qr_link, i*1000))  # اضافه کردن شماره برای نمایش
+
+        # بارگذاری تمپلیت (qrtemp.jpg)
+        template_path = os.path.join(settings.MEDIA_ROOT, 'qrtemp.jpg')  # مسیر فایل تمپلیت شما
+        template = Image.open(template_path)
+
+        # مختصات کادر سفید برای شماره QR
+        text_x, text_y = 388, 614  # موقعیت متن
+        text_color = "#bbf6be"  # رنگ متن
+
+        # استفاده از فونت مناسب
+        font = get_persian_font(font_size=40)
 
         # تولید PDF
         pdf_path = os.path.join(QR_CODE_DIR, "qrcodes.pdf")
-        pdf = canvas.Canvas(pdf_path)
+        pdf = canvas.Canvas(pdf_path, pagesize=(1024, 1345))
 
-        for qr_path, qr_link in qr_data:
-            # بارگذاری تصویر QR Code
-            qr_image = ImageReader(qr_path)
+        # اضافه کردن کد QR و شماره به هر تمپلیت
+        for qr_path, qr_link, serial_number in qr_data:
+            qr_image = Image.open(qr_path).resize((450, 450))  # تغییر اندازه کد QR
 
-            # تنظیم اندازه تصویر QR Code
-            qr_size = 400  # افزایش سایز QR Code
+            # بارگذاری تصویر تمپلیت
+            template = Image.open(template_path)
+            draw = ImageDraw.Draw(template)
 
-            # تنظیم عرض و ارتفاع صفحه متناسب با محتوا
-            link_width = pdf.stringWidth(qr_link, "Helvetica", 16) + 40  # عرض لینک + حاشیه
-            page_width = max(qr_size + 100, link_width)  # عرض صفحه متناسب با متن لینک
-            page_height = qr_size + 100  # ارتفاع متناسب
+            # تبدیل عدد به فارسی
+            persian_numbers = "۰۱۲۳۴۵۶۷۸۹"
+            serial_fa = "".join(persian_numbers[int(digit)] for digit in str(serial_number))
 
-            pdf.setPageSize((page_width, page_height))
+            # اضافه کردن شماره به تصویر
+            draw.text((text_x, text_y), serial_fa, font=font, fill=text_color)
 
-            # اضافه کردن QR Code به وسط صفحه
-            x = (page_width - qr_size) / 2
-            y = (page_height - qr_size - 40)  # کمی بالاتر از پایین صفحه
-            pdf.drawImage(qr_image, x, y, width=qr_size, height=qr_size)
+            # جایگذاری QR در تمپلیت
+            left, top = 285, 672
+            template.paste(qr_image, (left, top))
+            template.save("temp_template_for_pdf.jpg")
 
-            # اضافه کردن لینک زیر QR Code
-            pdf.setFont("Helvetica", 16)
-            text_x = (page_width - pdf.stringWidth(qr_link, "Helvetica", 16)) / 2
-            pdf.drawString(text_x, 20, qr_link)
+            # اضافه کردن تصویر به PDF
+            template_reader = ImageReader("temp_template_for_pdf.jpg")
+            pdf.drawImage(template_reader, 0, 0, width=1024, height=1345)
 
-            pdf.showPage()  # ایجاد صفحه جدید برای QR Code بعدی
+            pdf.showPage()
 
         pdf.save()
 
+        # ارسال PDF به کاربر
         return FileResponse(open(pdf_path, "rb"), as_attachment=True, filename="qrcodes.pdf")
 
     return render(request, 'generate_qrcodes.html')
