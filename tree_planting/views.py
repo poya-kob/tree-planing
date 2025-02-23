@@ -1,4 +1,4 @@
-from django.shortcuts import redirect, get_object_or_404
+from django.shortcuts import redirect, get_object_or_404, render
 from make_qrcode.models import QRCode
 
 
@@ -8,3 +8,7 @@ def router(request, qr_id):
         # todo:redirect to login page
         return 200
     return redirect('register-tree', qr_id)
+
+
+def index(request):
+    return render(request, 'index.html', {'title': 'صفحه اصلی'})

@@ -18,13 +18,20 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
-from.views import router
+from .views import router, index
 
 urlpatterns = [
-                  path('admin/', admin.site.urls),
-                  path('', include('make_qrcode.urls')),
-                  path('', include('my_users.urls')),
-                  path('', include('my_dashboard.urls')),
-                  path('<uuid:qr_id>/', router, name='router'),
+    path('admin/', admin.site.urls),
+    path('', index, name='index'),
+    path('', include('make_qrcode.urls')),
+    path('', include('my_users.urls')),
+    path('', include('my_dashboard.urls')),
+    path('<uuid:qr_id>/', router, name='router'),
 
-              ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]
+
+if settings.DEBUG:
+    # add root static files
+    urlpatterns = urlpatterns + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    # add media static files
+    urlpatterns = urlpatterns + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
