@@ -16,3 +16,7 @@ def index(request):
 
 def about(request):
     return render(request, 'about.html', {'title': 'درباره ما'})
+
+
+def contact(request):
+    return render(request, 'contact.html', {'title': 'تماس با ما'})

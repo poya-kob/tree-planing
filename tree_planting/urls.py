@@ -18,12 +18,13 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
-from .views import router, index, about
+from .views import router, index, about, contact
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index, name='index'),
     path('about/', about, name='about'),
+    path('contact/', about, name='contact'),
     path('', include('make_qrcode.urls')),
     path('', include('my_users.urls')),
     path('', include('my_dashboard.urls')),
