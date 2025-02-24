@@ -12,3 +12,7 @@ def router(request, qr_id):
 
 def index(request):
     return render(request, 'index.html', {'title': 'صفحه اصلی'})
+
+
+def about(request):
+    return render(request, 'about.html', {'title': 'درباره ما'})
