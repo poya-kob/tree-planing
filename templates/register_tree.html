@@ -14,12 +14,10 @@
                     <img src="{% static 'assets/images/home2/regiss.png' %}" class="img-fluid" alt="Sample image">
                 </div>
                 <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-                    <form>
+                    <form action="{% url 'register' %}" method="post">
                         <div class="d-flex flex-row align-items-center justify-content-center justify-content-lg-start">
                             <p class="lead fw-normal mb-0 me-3">ثبت نام</p>
-
                         </div>
-
                         <!-- Email input -->
                         <div class="form-outline mb-4">
                             {{ form.first_name.label }}
@@ -32,9 +30,8 @@
 
                         <!-- Password input -->
                         <div class="form-outline mb-3">
-                            <input type="password" id="form3Example4" class="form-control form-control-lg"
-                                   placeholder="کلمه عبور خود را وارد کنید"/>
-                            <label class="form-label" for="form3Example4">کلمه عبور</label>
+                            {{ form.password.label }}
+                            {{ form.password }}
                         </div>
                         <!-- Email input -->
                         <div class="form-outline mb-4">

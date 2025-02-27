@@ -4679,4 +4679,70 @@ body,h1,h2,h3,h4,h5,a,p{font-family: iranyekan!important;text-align: center;}
     align-self: center;
     align-content: center;
 }
+.gallery {
+    --s: 130px; /* control the size */
+    --g: 10px;  /* control the gap */
+    --f: 1.5;   /* control the scale factor */
+    
+    display: grid;
+    gap: var(--g);
+    width: calc(3*var(--s) + 2*var(--g));
+    aspect-ratio: 1;
+    grid-template-columns: repeat(3,auto);
+  }
+  
+  .gallery > img {
+    width: 0;
+    height: 0;
+    min-height: 100%;
+    min-width: 100%;
+    object-fit: cover;
+    cursor: pointer;
+    filter: grayscale(80%);
+    transition: .35s linear;
+  }
+  
+  .gallery img:hover{
+    filter: grayscale(0);
+    width:  calc(var(--s)*var(--f));
+    height: calc(var(--s)*var(--f));
+  }
+  .text-footer {
+    font-size: 22px;
+    font-weight: 550;
+    text-align: justify;
+  }
+  .text-footer1 {
+    font-size: 22px;
+    font-weight: 550;
+    justify-content: right;
+  }
+  .tarti{
+    display: inline-flex;
+  }  
+  #fooco1{
+    width: 35%;
+    font-weight: 500;
+    
+  }
+  #fooco2{
+    width: 20%;
+    font-weight: 500;
+  }
+  #fooco3{
+    width: 45%;
+    font-weight: 500;
 
+  }
+  .titfoo{
+    font-size: 25px;
+    font-weight: 700;
+    color: #08748c;
+  }
+  #maili{
+    font-size: 24px;
+    justify-content:left ;
+    text-align: left;
+    color: #191919;
+  }
+  
