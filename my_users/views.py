@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, HttpResponse, redirect
 from django.contrib.auth import login, authenticate, get_user_model
-from .forms import UsersFrom
+from .forms import UsersFrom, LoginUserForm
 from make_qrcode.models import QRCode
 from tree_planting.utils import move_qr_to_user_folder
 from .models import ContactUs
@@ -42,8 +42,9 @@ def register_tree(request, qr_id):
 
 
 def login_view(request):
-    if request.user.is_anonymous:
+    if not request.user.is_anonymous:
         return redirect("dashboard")
+    login_form = LoginUserForm(request.POST or None)
     if request.method == "POST":
         phone = request.POST.get("phone")
         user = MyUsers.objects.filter(phone=phone)
@@ -52,9 +53,9 @@ def login_view(request):
             login(request, user[0], backend='my_users.auth_backend.PhoneAuthBackend')  # لاگین بدون پسورد
             return redirect("dashboard")
         else:
-            return render(request, "login.html", {"error": "شماره موبایل یافت نشد!"})
+            return render(request, "login.html", {"error": "شماره موبایل یافت نشد!", 'form': login_form})
 
-    return render(request, "login.html")
+    return render(request, "login.html", {'form': login_form})
 
 
 def contact(request):

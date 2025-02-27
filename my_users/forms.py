@@ -13,3 +13,9 @@ class UsersFrom(forms.Form):
     meli_code = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control form-control-lg'}), label='کدملی')
     birthday = forms.DateField(widget=forms.DateInput(attrs={'class': 'form-control form-control-lg'}),
                                label='تاریخ تولد')
+
+
+class LoginUserForm(forms.Form):
+    phone = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control form-control-lg'}), label="موبایل")
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control form-control-lg'}),
+                               label='رمز ورود')
