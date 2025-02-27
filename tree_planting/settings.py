@@ -36,12 +36,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # installed apps
-    # 'qrcode',
+    'ckeditor',
     # my apps
     'make_qrcode',
     'my_users',
     'my_dashboard',
     'gallery',
+    'blog',
 ]
 
 MIDDLEWARE = [
@@ -55,6 +56,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'tree_planting.urls'
+CKEDITOR_UPLOAD_PATH = "uploads/"
 
 TEMPLATES = [
     {

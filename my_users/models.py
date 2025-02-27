@@ -27,8 +27,12 @@ class CustomUserManager(BaseUserManager):
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
     phone = models.CharField(max_length=11, unique=True)  # شماره موبایل یکتا
+    meli_code = models.CharField(max_length=10, unique=True)  # کدملی یکتا
     first_name = models.CharField(max_length=255, blank=True, null=True)
     last_name = models.CharField(max_length=255, blank=True, null=True)
+    stage = models.CharField(max_length=255, blank=True, null=True)# مقطع تحصیلی
+    school = models.CharField(max_length=255, blank=True, null=True)# نام مدرسه
+    zone = models.CharField(max_length=255, blank=True, null=True)# منطقه
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
