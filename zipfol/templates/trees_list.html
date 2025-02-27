@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>داشبورد</title>
+</head>
+<body>
+{% for tree in trees %}
+<a href="{% url 'tree-detail' qr_id=tree.unique_id %}"> <img src="{{ tree.qr_image.url }}" height="200" width="200"></a>
+{% endfor %}
+</body>
+</html>

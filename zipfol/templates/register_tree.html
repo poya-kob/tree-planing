@@ -1,0 +1,21 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <title>ثبت درخت</title>
+</head>
+<body>
+<h2>ثبت درخت</h2>
+<p>لطفاً اطلاعات خود را وارد کنید تا این درخت به نام شما ثبت شود.</p>
+<img src="{{ qr.qr_image.url }}" height="200" width="200">
+<form action="{% url 'register-tree' qr_id=qr.unique_id %}" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">ثبت</button>
+</form>
+{% if error %}
+    <p style="color: red;">{{ error }}</p>
+{% endif %}
+</body>
+</html>

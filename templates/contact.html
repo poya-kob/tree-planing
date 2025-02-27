@@ -39,23 +39,26 @@
                                 <p>لورم ایوم متن ساختگی با تولید راحت نامفهوم از صنعت چ<br>لورم ایپسوم متن ساختگی با ت
                                 </p>
                                 <div class="contact_form">
-                                    <form action="#" method="post" class="row" id="contact_form">
-                                        <div class="col-md-6"><input class="required" type="text" name="con_name"
+                                    <form action="{% url 'contact' %}" method="post" class="row" id="contact_form">
+                                        <div class="col-md-6"><input class="required" type="text" name="name"
                                                                      id="con_name" placeholder="نام"></div>
-                                        <div class="col-md-6"><input class="required" type="email" name="con_email"
-                                                                     id="con_email" placeholder="پست الکترونیک"></div>
-                                        <div class="col-md-6"><input type="number" name="con_phone" id="con_phone"
+                                        <div class="col-md-6"><input class="required" type="email" name="email"
+                                                                     id="email" placeholder="پست الکترونیک"></div>
+                                        <div class="col-md-6"><input type="number" name="con_phone" id="phone"
                                                                      placeholder="تلفن"></div>
-                                        <div class="col-md-6"><input type="text" name="con_subject" id="con_subject"
+                                        <div class="col-md-6"><input type="text" name="subject" id="subject"
                                                                      placeholder="موضوع"></div>
-                                        <div class="col-md-12"><textarea class="required" name="con_message"
-                                                                         id="con_message"
+                                        <div class="col-md-12"><textarea class="required" name="message"
+                                                                         id="message"
                                                                          placeholder="پیام شما در اینجا"></textarea>
                                         </div>
                                         <div class="col-md-12">
                                             <button type="submit" class="dgBtn">ارسال پیام</button>
                                             <div class="con_message"></div>
                                         </div>
+                                        {% if message %}
+                                            <strong>{{ message }}</strong>
+                                        {% endif %}
                                     </form>
                                 </div>
                             </div>

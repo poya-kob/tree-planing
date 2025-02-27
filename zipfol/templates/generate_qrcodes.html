@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <title>تولید QR Code</title>
+</head>
+<body>
+    <h2>تعداد QR Code مورد نیاز را وارد کنید:</h2>
+    <form method="post">
+        {% csrf_token %}
+        <input type="number" name="num_qr" min="1" required>
+        <button type="submit">دانلود PDF</button>
+    </form>
+</body>
+</html>

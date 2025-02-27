@@ -43,3 +43,11 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     def get_full_name(self):
         return f'{self.first_name} {self.last_name}'
+
+
+class ContactUs(models.Model):
+    subject = models.CharField(max_length=200)
+    name = models.CharField(max_length=50, null=True, blank=True)
+    phone = models.CharField(max_length=11)
+    email = models.EmailField()
+    massage = models.TextField()

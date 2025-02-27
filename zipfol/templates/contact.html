@@ -1,0 +1,79 @@
+{% extends 'shared/_MainLayOut.html' %}
+{% load static %}
+
+{% block content %}
+    <section class="pageBanner" style="background-image: url({% static 'assets/images/bg/banner.png' %});">
+        <div class="vmiddle">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 offset-lg-2 text-center">
+                        <h2 class="banner-title">با ما تماس بگیرید</h2>
+                        <p class="banner-desc">تیم همه کاره ما متشکل از طراحان، توسعه دهندگان و بازاریابان دیجیتال است
+                            که همگی تجربه منحصر به فردی را به ارمغان می آورند</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        </div>
+
+    </section>
+    <section>
+        <div class="container">
+            <div class="row">
+                <iframe title="map-iframe"
+                        src="https://neshan.org/maps/iframe/places/7cadf343a1b29a24359d952e4d16d41e#c35.690-51.457-16z-0p/35.69090323812047/51.45517989609937"
+                        width="1200" height="550" allowFullScreen loading="lazy"></iframe>
+            </div>
+        </div>
+    </section>
+    <section class="contactPage">
+        <div class="SecLayerimg move_anim"><img src="{% static 'assets/images/bg/s34.png' %}" alt=""></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="conFormWrapper">
+                        <div class="row">
+                            <div class="col-md-7">
+                                <h2>در تماس باشید!</h2>
+                                <p>لورم ایوم متن ساختگی با تولید راحت نامفهوم از صنعت چ<br>لورم ایپسوم متن ساختگی با ت
+                                </p>
+                                <div class="contact_form">
+                                    <form action="#" method="post" class="row" id="contact_form">
+                                        <div class="col-md-6"><input class="required" type="text" name="con_name"
+                                                                     id="con_name" placeholder="نام"></div>
+                                        <div class="col-md-6"><input class="required" type="email" name="con_email"
+                                                                     id="con_email" placeholder="پست الکترونیک"></div>
+                                        <div class="col-md-6"><input type="number" name="con_phone" id="con_phone"
+                                                                     placeholder="تلفن"></div>
+                                        <div class="col-md-6"><input type="text" name="con_subject" id="con_subject"
+                                                                     placeholder="موضوع"></div>
+                                        <div class="col-md-12"><textarea class="required" name="con_message"
+                                                                         id="con_message"
+                                                                         placeholder="پیام شما در اینجا"></textarea>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <button type="submit" class="dgBtn">ارسال پیام</button>
+                                            <div class="con_message"></div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <h3>در صورت تمایل سوالات خود را بپرسید یا نظرات خود را با ما در میان بگذارید.</h3>
+                                <div class="contactInfo"><img src="{% static 'assets/images/c1.png' %}" alt=""/>
+                                    <h4>تلفن</h4>
+                                    <p>تماس بگیرید: +8801682648101<br>فکس : 02 9292162</p>
+                                </div>
+                                <div class="contactInfo"><img src="{% static 'assets/images/c2.png' %}" alt=""/>
+                                    <h4>نشانی</h4>
+                                    <p>تهران، پیروزی، نرسیده به محوی، صنایع جنگ افزارسازی وزارت دفاع (محله‌ی صفا)</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

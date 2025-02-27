@@ -3,6 +3,7 @@ from django.contrib.auth import login, authenticate, get_user_model
 from .forms import UsersFrom
 from make_qrcode.models import QRCode
 from tree_planting.utils import move_qr_to_user_folder
+from .models import ContactUs
 
 MyUsers = get_user_model()
 
@@ -49,3 +50,15 @@ def login_view(request):
             return render(request, "login.html", {"error": "شماره موبایل یافت نشد!"})
 
     return render(request, "login.html")
+
+
+def contact(request):
+    if request.method == 'POST':
+        subject = request.POST.get('subject')
+        name = request.path.get('name')
+        phone = request.path.get('phone')
+        email = request.path.get('email')
+        message = request.path.get('message')
+        ContactUs.objects.create(subject=subject, name=name, phone=phone, email=email, message=message)
+        return render(request, 'contact.html', {'title': 'تماس با ما', 'message': 'پیام شما با موفقیت ارسال شد.'})
+    return render(request, 'contact.html', {'title': 'تماس با ما'})
