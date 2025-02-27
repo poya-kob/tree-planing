@@ -8,6 +8,11 @@ from .models import ContactUs
 MyUsers = get_user_model()
 
 
+def register(request):
+    user_form = UsersFrom(request.POST or None)
+    return render(request, 'register_tree.html', {'form': user_form})
+
+
 def register_tree(request, qr_id):
     qr = get_object_or_404(QRCode, unique_id=qr_id)
     if qr.user:

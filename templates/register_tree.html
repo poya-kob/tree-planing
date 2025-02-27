@@ -1,21 +1,83 @@
+{% extends 'shared/_MainLayOut.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="fa">
-<head>
-    <meta charset="UTF-8">
-    <title>ثبت درخت</title>
-</head>
-<body>
-<h2>ثبت درخت</h2>
-<p>لطفاً اطلاعات خود را وارد کنید تا این درخت به نام شما ثبت شود.</p>
-<img src="{{ qr.qr_image.url }}" height="200" width="200">
-<form action="{% url 'register-tree' qr_id=qr.unique_id %}" method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">ثبت</button>
-</form>
-{% if error %}
-    <p style="color: red;">{{ error }}</p>
-{% endif %}
-</body>
-</html>
+
+{% block content %}
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <section class="aboutSection02">
+        <div class="container-fluid h-custom">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-md-9 col-lg-6 col-xl-5">
+                    <img src="{% static 'assets/images/home2/regiss.png' %}" class="img-fluid" alt="Sample image">
+                </div>
+                <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+                    <form>
+                        <div class="d-flex flex-row align-items-center justify-content-center justify-content-lg-start">
+                            <p class="lead fw-normal mb-0 me-3">ثبت نام</p>
+
+                        </div>
+
+                        <!-- Email input -->
+                        <div class="form-outline mb-4">
+                            {{ form.first_name.label }}
+                            {{ form.first_name }}
+                        </div>
+                        <div class="form-outline mb-4">
+                            {{ form.last_name.label }}
+                            {{ form.last_name }}
+                        </div>
+
+                        <!-- Password input -->
+                        <div class="form-outline mb-3">
+                            <input type="password" id="form3Example4" class="form-control form-control-lg"
+                                   placeholder="کلمه عبور خود را وارد کنید"/>
+                            <label class="form-label" for="form3Example4">کلمه عبور</label>
+                        </div>
+                        <!-- Email input -->
+                        <div class="form-outline mb-4">
+                            {{ form.phone.label }}
+                            {{ form.phone }}
+                        </div>
+
+                        <!-- Password input -->
+                        <div class="form-outline mb-3">
+                            {{ form.birthday.label }}
+                            {{ form.birthday }}
+                        </div>
+                        <!-- Email input -->
+                        <div class="form-outline mb-4">
+                            {{ form.meli_code.label }}
+                            {{ form.meli_code }}
+                        </div>
+                        <div class="form-outline mb-4">
+                            {{ form.stage.label }}
+                            {{ form.stage }}
+                        </div>
+                        <!-- Password input -->
+                        <div class="form-outline mb-4">
+                            {{ form.school.label }}
+                            {{ form.school }}
+                        </div>
+                        <div class="form-outline mb-4">
+                            {{ form.zone.label }}
+                            {{ form.zone }}
+                        </div>
+
+
+                        <div class="text-center text-lg-start mt-4 pt-2">
+                            <button type="button" class="btn btn-primary btn-lg"
+                                    style="padding-left: 2.5rem; padding-right: 2.5rem;">ثبت نام
+                            </button>
+
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

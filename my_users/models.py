@@ -30,6 +30,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     meli_code = models.CharField(max_length=10, unique=True)  # کدملی یکتا
     first_name = models.CharField(max_length=255, blank=True, null=True)
     last_name = models.CharField(max_length=255, blank=True, null=True)
+    birthday = models.DateField()
     stage = models.CharField(max_length=255, blank=True, null=True)# مقطع تحصیلی
     school = models.CharField(max_length=255, blank=True, null=True)# نام مدرسه
     zone = models.CharField(max_length=255, blank=True, null=True)# منطقه
