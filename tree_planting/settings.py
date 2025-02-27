@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     # my apps
     'make_qrcode',
     'my_users',
-    'my_dashboard'
+    'my_dashboard',
+    'gallery',
 ]
 
 MIDDLEWARE = [
