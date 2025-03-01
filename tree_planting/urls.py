@@ -29,7 +29,7 @@ urlpatterns = [
     path('', include('my_dashboard.urls')),
     path('', include('blog.urls')),
     path('<uuid:qr_id>/', router, name='router'),
-    path('ckeditor/', include('ckeditor_uploader.urls')),
+    # path('ckeditor/', include('ckeditor_uploader.urls')),
 
 ]
 
