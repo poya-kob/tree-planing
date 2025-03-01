@@ -7,23 +7,38 @@
         <div class="bMiddle">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-6">
+                    <div class="col-lg-6" style="margin-top: 155px;">
                         <div class="bannerContent02">
                             <div class="sub-title animated">شهروند متعالی</div>
                             <h2 class="animated">غرس 2000 نهال </h2>
-                            <p class="animated">توسط دانش آموزان و شهرداران مدارس شهر تهران</p>
-                            <a class="dgBtn animated"
-                               href="{% url 'login-view' %}">شروع
-                                کنید</a>
+                            <p class="animated">توسط دانش آموزان و شهرداران مدارس شهر تهران</p><a class="dgBtn animated"
+                                                                                                  href="contact.html">ثبت
+                            نهال</a>
                         </div>
                     </div>
                     <div class="col-lg-6 animated pnl">
-                        <div class="bLayer move_anim"><img src="{% static 'assets/images/home2/789.png' %}" alt="">
+                        <div class="bLayer move_anim"><img src="{% static 'assets/images/home2/99999.png' %}" alt="">
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </section>
+    <section>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12" style="margin-top: 45px;">
+                    <a href="./blog5.html" class="button button1">مهارت های زندگی</a>
+                    <a href="./blog5.html" class="button button2">راهنمایی درسی و شغلی</a>
+                    <a href="./blog5.html" class="button button3">مشاوره و ارتباطات اجتماعی</a>
+                    <a href="./blog5.html" class="button button4">فناوری و مهارت های دیجیتال</a>
+                    <a href="./blog5.html" class="button button5">راهنمای دیجیتال مخصوص نوجوانان</a>
+
+                </div>
+            </div>
+        </div>
+
     </section>
     <section class="serviceSection03">
         <div class="SecLayerimg move_anim2"><img src="{% static 'assets/images/bg/s10.png' %}" alt=""></div>
@@ -31,20 +46,20 @@
             <div class="row">
                 <div class="col-lg-4 col-md-6">
                     <div class="serviceItem03 text-center">
-                        <h3><a href="single-service.html">کاشت 1500 نهال</a></h3>
+                        <h3><a href="{% url 'index' %}">کاشت 1500 نهال</a></h3>
                         <p>کاشت 1500 غرس نهال ، توسط شهرداری منطقه 13 تهران بزرگ</p><i class="dgita-coding"></i>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6">
                     <div class="serviceItem03 it32 text-center">
-                        <h3><a href="single-service.html">تعامل با شهرداری منطقه 13</a></h3>
+                        <h3><a href="{% url 'index' %}">تعامل با شهرداری منطقه 13</a></h3>
                         <p>روابط ایجاد کنید و ارزش های شرکت خود را با محتوای خوب ساخته شده متناسب با برند شما به اشتراک
                             بگذارید</p><i class="dgita-rocket"></i>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6">
                     <div class="serviceItem03 it33 text-center">
-                        <h3><a href="single-service.html">با ما در ارتباط باشید</a></h3>
+                        <h3><a href="{% url 'index' %}">با ما در ارتباط باشید</a></h3>
                         <p>روابط ایجاد کنید و ارزش های شرکت خود را با محتوای خوب ساخته شده متناسب با برند شما به اشتراک
                             بگذارید</p><i class="dgita-translation"></i>
                     </div>
@@ -62,8 +77,8 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="tsAuthor"><img
-                                            src="{% static 'assets/images/home2/744470894-talab-org.jpg' %}" alt=""><i
-                                            class="dgita-quote"></i></div>
+                                            src="{% static 'assets/images/home2/744470894-talab-org.jpg' %}"
+                                            alt=""><i class="dgita-quote"></i></div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="tsContent02">
@@ -103,5 +118,4 @@
             </div>
         </div>
     </section>
-
 {% endblock %}
