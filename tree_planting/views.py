@@ -1,12 +1,11 @@
-from django.shortcuts import redirect, get_object_or_404, render
+from django.shortcuts import get_object_or_404, redirect, render, reverse
 from make_qrcode.models import QRCode
 
 
 def router(request, qr_id):
     qr = get_object_or_404(QRCode, unique_id=qr_id)
     if qr.user:
-        # todo:redirect to login page
-        return 200
+        return redirect(reverse('login-view'))
     return redirect('register-tree', qr_id)
 
 
@@ -16,6 +15,3 @@ def index(request):
 
 def about(request):
     return render(request, 'about.html', {'title': 'درباره ما'})
-
-
-

@@ -39,27 +39,51 @@
                                 <p>لورم ایوم متن ساختگی با تولید راحت نامفهوم از صنعت چ<br>لورم ایپسوم متن ساختگی با ت
                                 </p>
                                 <div class="contact_form">
+
                                     <form action="{% url 'contact' %}" method="post" class="row" id="contact_form">
-                                        <div class="col-md-6"><input class="required" type="text" name="name"
-                                                                     id="con_name" placeholder="نام"></div>
-                                        <div class="col-md-6"><input class="required" type="email" name="email"
-                                                                     id="email" placeholder="پست الکترونیک"></div>
-                                        <div class="col-md-6"><input type="number" name="con_phone" id="phone"
-                                                                     placeholder="تلفن"></div>
-                                        <div class="col-md-6"><input type="text" name="subject" id="subject"
-                                                                     placeholder="موضوع"></div>
-                                        <div class="col-md-12"><textarea class="required" name="message"
-                                                                         id="message"
-                                                                         placeholder="پیام شما در اینجا"></textarea>
+                                        {% csrf_token %}
+
+                                        <div class="col-md-6">
+                                            <label class="form-label">{{ form.name.label }}</label>
+                                            {{ form.name }}
+                                            <small class="text-danger">{{ form.name.errors }}</small>
                                         </div>
+
+                                        <div class="col-md-6">
+                                            <label class="form-label">{{ form.email.label }}</label>
+                                            {{ form.email }}
+                                            <small class="text-danger">{{ form.email.errors }}</small>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <label class="form-label">{{ form.phone.label }}</label>
+                                            {{ form.phone }}
+                                            <small class="text-danger">{{ form.phone.errors }}</small>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <label class="form-label">{{ form.subject.label }}</label>
+                                            {{ form.subject }}
+                                            <small class="text-danger">{{ form.subject.errors }}</small>
+                                        </div>
+
                                         <div class="col-md-12">
-                                            <button type="submit" class="dgBtn">ارسال پیام</button>
-                                            <div class="con_message"></div>
+                                            <label class="form-label">{{ form.message.label }}</label>
+                                            {{ form.message }}
+                                            <small class="text-danger">{{ form.message.errors }}</small>
                                         </div>
-                                        {% if message %}
-                                            <strong>{{ message }}</strong>
-                                        {% endif %}
+
+                                        <div class="col-md-12">
+                                            <button type="submit" class="btn btn-primary">ارسال پیام</button>
+                                        </div>
+
+                                        <div class="message">
+                                            {% if message %}
+                                                <strong class="text-success">{{ message }}</strong>
+                                            {% endif %}
+                                        </div>
                                     </form>
+
                                 </div>
                             </div>
                             <div class="col-md-5">

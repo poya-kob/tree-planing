@@ -20,7 +20,7 @@
             <div class="col-lg-12">
                 <div class="navBar01">
                     <div class="logo"><a href="{% url 'index' %}"><img src="{% static 'assets/images/logo-no.png' %}"
-                                                                 alt="nojavaneshahr.ir"></a></div>
+                                                                       alt="nojavaneshahr.ir"></a></div>
                     <a href="javascript:void(0)" class="menu_btn"><i class="twi-bars2"></i></a>
                     <nav class="mainMenu">
                         <ul>
@@ -28,8 +28,10 @@
                             <li><a href="{% url 'blogs' %}">وبلاگ</a></li>
                             <li><a href="{% url 'about' %}">درباره ما</a></li>
                             <li><a href="{% url 'contact' %}">تماس با ما</a></li>
-                            <li><a href="{% url 'dashboard' %}">داشبودر</a></li>
-
+                            {% if request.user.is_authenticated %}
+                                <li><a href="{% url 'dashboard' %}">داشبودر</a></li>
+                                <li><a href="{% url 'log-out' %}">خروج</a></li>
+                            {% endif %}
                         </ul>
                     </nav>
                     <div class="accessNav"><a class="phoneBtn" href="tel:+984569871">0214569871 <i

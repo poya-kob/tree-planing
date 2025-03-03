@@ -15,8 +15,6 @@ def tree_list(request):
         trees = QRCode.objects.all()
     else:
         trees = request.user.trees.all()
-    print(request.user.phone)
-    print(trees)
     return render(request, 'trees_list.html', {'trees': trees})
 
 

@@ -7,6 +7,7 @@ class TreeImage(models.Model):
     title = models.CharField(max_length=150, verbose_name="عنوان تصویر")
     image = models.ImageField(upload_to=upload_image_path, verbose_name='تصویر درخت')
     tree = models.ForeignKey(QRCode, on_delete=models.CASCADE, related_name='images', verbose_name="انتخاب درخت")
+    is_active = models.BooleanField(default=False)
 
     class Meta:
         verbose_name_plural = 'تصویر'
