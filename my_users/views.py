@@ -34,12 +34,13 @@ def register_tree(request, qr_id):
                 meli_code = user_form.cleaned_data.get('meli_code')
                 birthday = user_form.cleaned_data.get('birthday')
                 phone = user_form.cleaned_data.get('phone')
-                user = MyUsers.objects.create_user(phone, first_name, last_name, stage=stage, meli_code=meli_code,
-                                                   school=school, zone=zone, birthday=birthday)
+                user = MyUsers.objects.create_user(phone, first_name=first_name, last_name=last_name, stage=stage,
+                                                   meli_code=meli_code, school=school, zone=zone, birthday=birthday)
                 qr.user = user
                 qr.is_registered = True
                 qr.save()
-            if request.FILES['upload']:
+            upload_file = request.FILES.get('upload')
+            if upload_file:
                 TreeImage.objects.create(title='first-image', image=request.FILES['upload'], tree=qr)
 
             login(request, user, backend='my_users.auth_backend.PhoneAuthBackend')
