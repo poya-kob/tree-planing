@@ -53,6 +53,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # my middlewares
+    'gallery.middlewares.RandomGalleryMiddleware'
 ]
 
 ROOT_URLCONF = 'tree_planting.urls'
