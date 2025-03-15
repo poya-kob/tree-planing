@@ -297,7 +297,7 @@ input[type="number"]::-webkit-inner-spin-button {
 /------------------------------------------------------*/
 .pageBanner {
     position: relative;
-    height: 597px;
+    height: 500px;
     background-color: #f9f9ff;
     background-repeat: no-repeat;
     background-position: center center;

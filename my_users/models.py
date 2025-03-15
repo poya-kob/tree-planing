@@ -12,14 +12,20 @@ class CustomUserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, phone, password):
+    def create_superuser(self, phone, password, **extra_fields):
         """ ایجاد سوپریوزر که نیاز به پسورد دارد """
         if not phone:
             raise ValueError("شماره موبایل الزامی است")
         if not password:
             raise ValueError("پسورد الزامی است برای سوپریوزر")
 
-        user = self.model(phone=phone, is_staff=True, is_superuser=True)
+        extra_fields.setdefault("is_staff", True)
+        extra_fields.setdefault("is_superuser", True)
+
+        # مقدار birthday را اضافه کنید
+        extra_fields.setdefault("birthday", "2000-01-01")  # مقدار پیش‌فرض
+
+        user = self.model(phone=phone, **extra_fields)
         user.set_password(password)  # ست کردن پسورد فقط برای سوپریوزر
         user.save(using=self._db)
         return user
@@ -31,9 +37,9 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     first_name = models.CharField(max_length=255, blank=True, null=True)
     last_name = models.CharField(max_length=255, blank=True, null=True)
     birthday = models.DateField()
-    stage = models.CharField(max_length=255, blank=True, null=True)# مقطع تحصیلی
-    school = models.CharField(max_length=255, blank=True, null=True)# نام مدرسه
-    zone = models.CharField(max_length=255, blank=True, null=True)# منطقه
+    stage = models.CharField(max_length=255, blank=True, null=True)  # مقطع تحصیلی
+    school = models.CharField(max_length=255, blank=True, null=True)  # نام مدرسه
+    zone = models.CharField(max_length=255, blank=True, null=True)  # منطقه
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)

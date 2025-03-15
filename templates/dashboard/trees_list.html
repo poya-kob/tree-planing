@@ -1,0 +1,96 @@
+{% extends 'shared/_MainLayOut.html' %}
+{% load static %}
+
+{% block content %}
+
+    <div class="container mt-4">
+        <h2 class="mb-4 text-center">مدیریت درخت‌ها</h2>
+
+        <!-- فیلتر -->
+        <form method="GET" class="mb-3">
+            <div class="form-row align-items-center">
+                <div class="col-auto">
+                    <label for="statusFilter" class="sr-only">فیلتر وضعیت</label>
+                    <select name="status" id="statusFilter" class="form-control">
+                        <option value="">همه درخت‌ها</option>
+                        <option value="registered" {% if request.GET.status == "registered" %}selected{% endif %}>
+                            درخت‌های ثبت‌شده
+                        </option>
+                        <option value="unregistered" {% if request.GET.status == "unregistered" %}selected{% endif %}>
+                            درخت‌های ثبت‌نشده
+                        </option>
+                    </select>
+                </div>
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-primary">اعمال فیلتر</button>
+                </div>
+            </div>
+        </form>
+
+        <!-- لیست درخت‌ها -->
+        <div class="row">
+            {% for tree in trees %}
+                <div class="col-md-4 mb-4">
+                    <div class="card shadow-sm">
+                        <!-- تصویر درخت -->
+                        {% if tree.images.all %}
+                            <img src="{{ tree.images.first.image.url }}" class="card-img-top img-thumbnail"
+                                 alt="{{ tree.images.first.title }}" style="height: 200px; object-fit: cover;">
+                        {% else %}
+                            <img src="{{ tree.qr_image.url }}" class="card-img-top img-thumbnail"
+                                 alt="No Image" style="height: 200px; object-fit: cover;">
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">درخت #{{ tree.id }}</h5>
+                            <p class="card-text">نام صاحب درخت: {{ tree.user }}</p>
+                            <p class="card-text">وضعیت:
+                                {% if tree.is_registered %}
+                                    <span class="badge badge-success">ثبت‌شده</span>
+                                {% else %}
+                                    <span class="badge badge-warning">ثبت‌نشده</span>
+                                {% endif %}
+                            </p>
+                            <a href="{% url 'tree-detail' tree.unique_id %}" class="btn btn-info btn-sm">مشاهده
+                                جزئیات</a>
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <div class="col-12 text-center">
+                    <p class="alert alert-info">هیچ درختی پیدا نشد.</p>
+                </div>
+            {% endfor %}
+        </div>
+
+        <!-- صفحه‌بندی -->
+        {% if page_obj.has_other_pages %}
+            <nav>
+                <ul class="pagination justify-content-center">
+                    {% if page_obj.has_previous %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page=1&status={{ request.GET.status }}">«</a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link"
+                               href="?page={{ page_obj.previous_page_number }}&status={{ request.GET.status }}">‹</a>
+                        </li>
+                    {% endif %}
+
+                    <li class="page-item active"><span class="page-link">{{ page_obj.number }}</span></li>
+
+                    {% if page_obj.has_next %}
+                        <li class="page-item">
+                            <a class="page-link"
+                               href="?page={{ page_obj.next_page_number }}&status={{ request.GET.status }}">›</a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link"
+                               href="?page={{ page_obj.paginator.num_pages }}&status={{ request.GET.status }}">»</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </nav>
+        {% endif %}
+
+    </div>
+{% endblock %}

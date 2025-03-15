@@ -1,9 +1,11 @@
 from django.urls import path
-from .views import user_dashboard, tree_list, tree_detail
+from .views import user_dashboard, TreeDetailView, UnapprovedImagesView, ApproveImagesView, TreeListView
 
 urlpatterns = [
-    path('dashboard/', user_dashboard, name='dashboard'),
-    path('dashboard/trees', tree_list, name='trees-list'),
-    path('dashboard/tree/<uuid:qr_id>', tree_detail, name='tree-detail'),
+    path('', user_dashboard, name='dashboard'),
+    path('trees', TreeListView.as_view(), name='trees-list'),
+    path('tree/<slug:unique_id>/', TreeDetailView.as_view(), name="tree-detail"),
+    path('images/unapproved/', UnapprovedImagesView.as_view(), name='unapproved-images'),
+    path('images/approve/', ApproveImagesView.as_view(), name='approve-images'),
 
 ]

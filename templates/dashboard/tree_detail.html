@@ -1,0 +1,99 @@
+{% extends 'shared/_MainLayOut.html' %}
+{% load static %}
+
+
+
+{% block content %}
+    <div class="container mt-4">
+        <div class="row">
+            <!-- اطلاعات کلی درخت -->
+            <div class="col-md-5">
+                <div class="card shadow-lg p-3">
+                    <h4 class="text-center">جزئیات درخت</h4>
+                    <hr>
+                    <p><strong>درخت شماره:</strong> {{ tree.id }}</p>
+                    <p><strong>وضعیت:</strong>
+                        <span class="badge badge-{% if tree.is_registered %}success{% else %}danger{% endif %}">
+                        {% if tree.is_registered %} ثبت‌شده {% else %} ثبت‌نشده {% endif %}
+                    </span>
+                    </p>
+
+                    {% if tree.user %}
+                        <p><strong>گرفته‌شده توسط:</strong> {{ tree.user.get_full_name }}</p>
+                        <p><strong>شماره موبایل:</strong> {{ tree.user.phone }}</p>
+                    {% else %}
+                        <p class="text-muted">این درخت هنوز گرفته نشده است.</p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- تصویر اصلی درخت -->
+            <div class="col-md-7">
+                <div class="text-center">
+                    <h4>تصویر اصلی درخت</h4>
+                    <div class="image-container">
+                        <img src="{{ tree.qr_image.url }}" class="img-fluid main-image" alt="تصویر درخت">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- فرم آپلود عکس جدید -->
+        <div class="row mt-5">
+            <div class="col-md-6 offset-md-3">
+                <h4 class="text-center">افزودن تصویر جدید</h4>
+                <div class="card p-3 shadow-sm">
+                    <form method="post" action="{% url 'tree-detail' tree.unique_id %}" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <button type="submit" class="btn btn-primary btn-block">آپلود تصویر</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+        <!-- اسلایدر تصاویر اضافی -->
+        {% if tree.images.all %}
+            <div class="row mt-4">
+                <div class="col-md-8 offset-md-2">
+                    <h4 class="text-center">تصاویر بیشتر</h4>
+                    <div id="treeImagesCarousel" class="carousel slide carousel-fade shadow-sm rounded"
+                         data-ride="carousel">
+                        <div class="carousel-inner">
+                            {% for image in tree.images.all %}
+                                <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                                    <img src="{{ image.image.url }}" class="d-block w-100 rounded shadow-sm"
+                                         alt="عکس درخت" style="max-height: 400px; object-fit: cover;">
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <a class="carousel-control-prev" href="#treeImagesCarousel" role="button" data-slide="prev">
+                            <span class="carousel-control-prev-icon carousel-btn" aria-hidden="true"></span>
+                        </a>
+                        <a class="carousel-control-next" href="#treeImagesCarousel" role="button" data-slide="next">
+                            <span class="carousel-control-next-icon carousel-btn" aria-hidden="true"></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+
+
+
+    <style>
+        .main-image {
+            max-height: 350px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .carousel-btn {
+            background-color: rgba(0, 0, 0, 0.3);
+            border-radius: 50%;
+            padding: 10px;
+        }
+
+        .carousel-btn:hover {
+            background-color: rgba(0, 0, 0, 0.6);
+        }
+    </style>
+{% endblock %}
