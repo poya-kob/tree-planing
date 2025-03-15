@@ -3,94 +3,103 @@
 
 {% block content %}
 
-    <div class="container mt-4">
-        <h2 class="mb-4 text-center">مدیریت درخت‌ها</h2>
+    <section>
+        <div class="admin-panel">
+            <!-- سایدبار -->
+            {% include 'dashboard/_SideBar.html' %}
 
-        <!-- فیلتر -->
-        <form method="GET" class="mb-3">
-            <div class="form-row align-items-center">
-                <div class="col-auto">
-                    <label for="statusFilter" class="sr-only">فیلتر وضعیت</label>
-                    <select name="status" id="statusFilter" class="form-control">
-                        <option value="">همه درخت‌ها</option>
-                        <option value="registered" {% if request.GET.status == "registered" %}selected{% endif %}>
-                            درخت‌های ثبت‌شده
-                        </option>
-                        <option value="unregistered" {% if request.GET.status == "unregistered" %}selected{% endif %}>
-                            درخت‌های ثبت‌نشده
-                        </option>
-                    </select>
-                </div>
-                <div class="col-auto">
-                    <button type="submit" class="btn btn-primary">اعمال فیلتر</button>
-                </div>
-            </div>
-        </form>
 
-        <!-- لیست درخت‌ها -->
-        <div class="row">
-            {% for tree in trees %}
-                <div class="col-md-4 mb-4">
-                    <div class="card shadow-sm">
-                        <!-- تصویر درخت -->
-                        {% if tree.images.all %}
-                            <img src="{{ tree.images.first.image.url }}" class="card-img-top img-thumbnail"
-                                 alt="{{ tree.images.first.title }}" style="height: 200px; object-fit: cover;">
-                        {% else %}
-                            <img src="{{ tree.qr_image.url }}" class="card-img-top img-thumbnail"
-                                 alt="No Image" style="height: 200px; object-fit: cover;">
-                        {% endif %}
-                        <div class="card-body">
-                            <h5 class="card-title">درخت #{{ tree.id }}</h5>
-                            <p class="card-text">نام صاحب درخت: {{ tree.user }}</p>
-                            <p class="card-text">وضعیت:
-                                {% if tree.is_registered %}
-                                    <span class="badge badge-success">ثبت‌شده</span>
-                                {% else %}
-                                    <span class="badge badge-warning">ثبت‌نشده</span>
-                                {% endif %}
-                            </p>
-                            <a href="{% url 'tree-detail' tree.unique_id %}" class="btn btn-info btn-sm">مشاهده
-                                جزئیات</a>
+            <div id="tree-list" class="content active">
+                <!-- لیست درخت‌ها -->
+                <div id="tree-list" class="content active">
+                    <h2>لیست تمامی درخت‌ها</h2>
+
+                    <!-- فیلترها -->
+                    <form method="GET" action="{% url 'trees-list' %}" id="filter-form">
+                        <div class="filters">
+                            <button type="submit" name="status" value="all"
+                                    class="filter-btn {% if request.GET.status == 'all' or not request.GET.status %}active{% endif %}">
+                                همه
+                            </button>
+                            <button type="submit" name="status" value="registered"
+                                    class="filter-btn {% if request.GET.status == 'registered' %}active{% endif %}">
+                                ثبت شده
+                            </button>
+                            <button type="submit" name="status" value="unregistered"
+                                    class="filter-btn {% if request.GET.status == 'unregistered' %}active{% endif %}">
+                                ثبت نشده
+                            </button>
+
+                            <select name="sort" class="sort-select" onchange="this.form.submit()">
+                                <option value="newest"
+                                        {% if request.GET.sort == 'newest' or not request.GET.sort %}selected{% endif %}>
+                                    جدیدترین
+                                </option>
+                                <option value="oldest" {% if request.GET.sort == 'oldest' %}selected{% endif %}>
+                                    قدیمی‌ترین
+                                </option>
+                            </select>
                         </div>
+                    </form>
+
+                    <!-- گالری درخت‌ها -->
+                    <div class="tree-gallery">
+                        {% for tree in trees %}
+                            <div class="tree-item">
+                                <!-- تصویر درخت -->
+                                {% if tree.images.all %}
+                                    <img src="{{ tree.images.first.image.url }}" alt="{{ tree.images.first.title }}">
+                                {% else %}
+                                    <img src="{{ tree.qr_image.url }}" alt="No Image">
+                                {% endif %}
+
+                                <!-- اطلاعات درخت -->
+                                <div class="tree-info">
+                                    <p><strong>شماره درخت:</strong> {{ tree.id }}</p>
+                                    <p><strong>مالک:</strong> {{ tree.user }}</p>
+                                    <p><strong>وضعیت:</strong>
+                                        {% if tree.is_registered %}
+                                            <span class="badge badge-success">ثبت شده</span>
+                                        {% else %}
+                                            <span class="badge badge-warning">ثبت نشده</span>
+                                        {% endif %}
+                                    </p>
+                                    <a href="{% url 'tree-detail' tree.unique_id %}" class="btn btn-info btn-sm">مشاهده
+                                        جزئیات</a>
+                                </div>
+                            </div>
+                        {% empty %}
+                            <div class="col-12 text-center">
+                                <p class="alert alert-info">هیچ درختی پیدا نشد.</p>
+                            </div>
+                        {% endfor %}
                     </div>
+
+                    <!-- صفحه‌بندی -->
+                    {% if page_obj.has_other_pages %}
+                        <div class="pagination">
+                            {% if page_obj.has_previous %}
+                                <a href="?page=1&status={{ request.GET.status }}" class="page-link prev">«</a>
+                                <a href="?page={{ page_obj.previous_page_number }}&status={{ request.GET.status }}"
+                                   class="page-link prev">قبلی</a>
+                            {% endif %}
+
+                            <div class="page-numbers">
+                                <span class="active">{{ page_obj.number }}</span>
+                            </div>
+
+                            {% if page_obj.has_next %}
+                                <a href="?page={{ page_obj.next_page_number }}&status={{ request.GET.status }}"
+                                   class="page-link next">بعدی</a>
+                                <a href="?page={{ page_obj.paginator.num_pages }}&status={{ request.GET.status }}"
+                                   class="page-link next">»</a>
+                            {% endif %}
+                        </div>
+                    {% endif %}
                 </div>
-            {% empty %}
-                <div class="col-12 text-center">
-                    <p class="alert alert-info">هیچ درختی پیدا نشد.</p>
-                </div>
-            {% endfor %}
+
+            </div>
+
         </div>
-
-        <!-- صفحه‌بندی -->
-        {% if page_obj.has_other_pages %}
-            <nav>
-                <ul class="pagination justify-content-center">
-                    {% if page_obj.has_previous %}
-                        <li class="page-item">
-                            <a class="page-link" href="?page=1&status={{ request.GET.status }}">«</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link"
-                               href="?page={{ page_obj.previous_page_number }}&status={{ request.GET.status }}">‹</a>
-                        </li>
-                    {% endif %}
-
-                    <li class="page-item active"><span class="page-link">{{ page_obj.number }}</span></li>
-
-                    {% if page_obj.has_next %}
-                        <li class="page-item">
-                            <a class="page-link"
-                               href="?page={{ page_obj.next_page_number }}&status={{ request.GET.status }}">›</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link"
-                               href="?page={{ page_obj.paginator.num_pages }}&status={{ request.GET.status }}">»</a>
-                        </li>
-                    {% endif %}
-                </ul>
-            </nav>
-        {% endif %}
-
-    </div>
+    </section>
 {% endblock %}

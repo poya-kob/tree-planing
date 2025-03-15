@@ -3,4 +3,112 @@
 
 {% block content %}
 
+    <section>
+        <div class="admin-panel">
+        {% include 'dashboard/_SideBar.html' %}
+            <!-- محتوای اصلی -->
+            <main class="main-content">
+                <!-- داشبورد -->
+                <div id="dashboard" class="content active">
+                    <h2>داشبورد</h2>
+                    <div class="stats">
+                        <div class="stat-item">
+                            <h3>تعداد کلی درختان</h3>
+                            <p>۱۵۰۰</p>
+                        </div>
+                        <div class="stat-item">
+                            <h3>تعداد ثبت‌نامی در سایت</h3>
+                            <p>{{ active_trees }}</p>
+                        </div>
+                        <div class="stat-item">
+                            <h3>تعداد عکس‌های بارگذاری شده</h3>
+                            <p>{{ trees_pic }}</p>
+                        </div>
+                        <div class="stat-item">
+                            <h3>تعداد نظرات</h3>
+                            <p>۳۰۰</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- لیست درخت‌ها -->
+                <div id="tree-list" class="content">
+                    <h2>لیست تمامی درخت‌ها</h2>
+                    <!-- فیلترها -->
+                    <div class="filters">
+                        <button class="filter-btn active" data-filter="all">همه</button>
+                        <button class="filter-btn" data-filter="approved">تایید شده</button>
+                        <button class="filter-btn" data-filter="not-approved">تایید نشده</button>
+                        <select class="sort-select">
+                            <option value="newest">جدیدترین</option>
+                            <option value="oldest">قدیمی‌ترین</option>
+                        </select>
+                    </div>
+                    <!-- گالری درخت‌ها -->
+                    <div class="tree-gallery">
+                        <!-- آیتم‌های درخت‌ها -->
+                        <!-- این بخش توسط جاوااسکریپت پر می‌شود -->
+                    </div>
+                    <!-- صفحه‌بندی -->
+                    <div class="pagination">
+                        <a href="#" class="page-link prev">&laquo; قبلی</a>
+                        <div class="page-numbers"></div>
+                        <a href="#" class="page-link next">بعدی &raquo;</a>
+                    </div>
+                </div>
+
+                <!-- نظرات کاربران -->
+                <div id="user-comments" class="content">
+                    <h2>نظرات کاربران</h2>
+                    <!-- فیلترها -->
+                    <div class="filters">
+                        <button class="filter-btn active" data-filter="all">همه</button>
+                        <button class="filter-btn" data-filter="approved">تایید شده</button>
+                        <button class="filter-btn" data-filter="not-approved">تایید نشده</button>
+                    </div>
+                    <!-- لیست نظرات -->
+                    <div class="comments-list">
+                        <!-- آیتم‌های نظرات -->
+                        <!-- این بخش توسط جاوااسکریپت پر می‌شود -->
+                    </div>
+                    <!-- صفحه‌بندی -->
+                    <div class="pagination">
+                        <a href="#" class="page-link prev">&laquo; قبلی</a>
+                        <div class="page-numbers"></div>
+                        <a href="#" class="page-link next">بعدی &raquo;</a>
+                    </div>
+                </div>
+
+                <!-- عکس کاربران و درختان -->
+                <div id="user-tree-gallery" class="content">
+                    <h2>عکس کاربران و درختان</h2>
+                    <div class="gallery">
+                        <!-- آیتم‌های گالری -->
+                        <!-- این بخش توسط جاوااسکریپت پر می‌شود -->
+                    </div>
+                    <!-- صفحه‌بندی -->
+                    <div class="pagination">
+                        <a href="#" class="page-link prev">&laquo; قبلی</a>
+                        <div class="page-numbers"></div>
+                        <a href="#" class="page-link next">بعدی &raquo;</a>
+                    </div>
+                </div>
+
+                <!-- پست‌ها -->
+                <div id="posts" class="content">
+                    <h2>پست‌ها</h2>
+                    <div class="posts-list">
+                        <!-- آیتم‌های پست‌ها -->
+                        <!-- این بخش توسط جاوااسکریپت پر می‌شود -->
+                    </div>
+                    <!-- صفحه‌بندی -->
+                    <div class="pagination">
+                        <a href="#" class="page-link prev">&laquo; قبلی</a>
+                        <div class="page-numbers"></div>
+                        <a href="#" class="page-link next">بعدی &raquo;</a>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </section>
 {% endblock %}

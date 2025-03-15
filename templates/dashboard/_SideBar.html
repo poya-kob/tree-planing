@@ -1,0 +1,36 @@
+<!-- سایدبار -->
+<aside class="sidebar">
+    <div class="logo">
+        <h1>پنل ادمین</h1>
+    </div>
+    <nav>
+        <ul>
+            <li>
+                <a href="{% url 'dashboard' %}" class="{% if request.path == '/dashboard/' %}active{% endif %}">
+                    داشبورد
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'trees-list' %}" class="{% if 'trees' in request.path %}active{% endif %}">
+                    لیست تمامی درخت‌ها
+                </a>
+            </li>
+            <li>
+                <a href="#" class="{% if request.path == '/dashboard/comments/' %}active{% endif %}">
+                    نظرات کاربران
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'unapproved-images' %}"
+                   class="{% if request.path == '/dashboard/images/unapproved/' %}active{% endif %}">
+                    عکس کاربران و درختان
+                </a>
+            </li>
+            <li>
+                <a href="#" class="{% if request.path == '/dashboard/posts/' %}active{% endif %}">
+                    پست‌ها
+                </a>
+            </li>
+        </ul>
+    </nav>
+</aside>
