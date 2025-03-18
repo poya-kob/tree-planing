@@ -7,6 +7,16 @@
     {% include 'shared/_HeaderReferences.html' %}
 </head>
 <body>
+{% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+            <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
+
 <div class="preloader text-center">
     <div class="la-ball-scale-multiple la-2x">
         <div></div>
@@ -30,7 +40,7 @@
                 {% else %}
                     <form action="#" class="searchform order-sm-start order-lg-last">
                         <div class="form-group d-flex">
-                            <input type="text" class="form-control pl-3" placeholder="جستجو">
+                            <input type="text" class="form-control pl-sm-1" placeholder="جستجو">
                             <button type="submit" placeholder="" class="form-control search"><span
                                     class="fa fa-search"></span></button>
                         </div>
@@ -43,40 +53,21 @@
                 <div class="collapse navbar-collapse" id="ftco-nav">
                     <ul class="navbar-nav m-auto">
                         <li class="nav-item "><a class="nav-link" href="{% url 'index' %}">صفحه اصلی</a></li>
-                        {% if "/dashboard/" in request.path %}
-                            <li class="nav-item "><a class="nav-link" href="{% url 'index' %}">مشخصات من</a></li>
-
-                            {% if request.user.is_superuser %}
-                                <li class="nav-item "><a class="nav-link" href="{% url 'unapproved-images' %}">عکس
-                                    ها</a></li>
-                                <li class="nav-item "><a class="nav-link" href="{% url 'trees-list' %}">ایجادپست
-                                    جدید</a>
-                                </li>
-                                <li class="nav-item "><a class="nav-link" href="{% url 'trees-list' %}">لیست درخت ها</a>
-                                </li>
-                            {% else %}
-                                <li class="nav-item "><a class="nav-link" href="{% url 'index' %}">درخت من</a></li>
-                            {% endif %}
+                        <li class="nav-item "><a class="nav-link" href="{% url 'blogs' %}">وبلاگ</a></li>
+                        <li class="nav-item "><a class="nav-link" href="{% url 'about' %}">درباره ما</a></li>
+                        <li class="nav-item "><a class="nav-link" href="{% url 'contact' %}">تماس با ما</a></li>
+                        {% if request.user.is_authenticated %}
+                            <li class="nav-item "><a href="{% url 'dashboard' %}">داشبورد</a></li>
                             <li class="nav-item "><a href="{% url 'log-out' %}">خروج</a></li>
-
-                        {% else %}
-                            <li class="nav-item "><a class="nav-link" href="{% url 'blogs' %}">وبلاگ</a></li>
-                            <li class="nav-item "><a class="nav-link" href="{% url 'about' %}">درباره ما</a></li>
-                            <li class="nav-item "><a class="nav-link" href="{% url 'contact' %}">تماس با ما</a></li>
-                            {% if request.user.is_authenticated %}
-                                <li class="nav-item "><a href="{% url 'dashboard' %}">داشبودر</a></li>
-                                <li class="nav-item "><a href="{% url 'log-out' %}">خروج</a></li>
-                            {% endif %}
                         {% endif %}
+
                     </ul>
                 </div>
             </div>
         </nav>
         <!-- END nav -->
-
     </section>
 </header>
-
 {% block content %}
 
 

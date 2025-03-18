@@ -25,11 +25,8 @@ class ApproveImagesView(View):
         if not approved_image_ids:
             messages.warning(request, "هیچ تصویری برای تأیید انتخاب نشده است.")
             return redirect("unapproved-images")
-        print(approved_image_ids)
-        print(request.POST)
         images_updated = TreeImage.objects.filter(id__in=approved_image_ids, is_active=False).update(is_active=True)
         messages.success(request, f"{images_updated} تصویر تأیید شد.")
-
         return redirect("unapproved-images")
 
 
