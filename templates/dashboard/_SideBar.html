@@ -16,7 +16,7 @@
                 </a>
             </li>
             <li>
-                <a href="#" class="{% if request.path == '/dashboard/comments/' %}active{% endif %}">
+                <a href="{% url 'comments-list' %}" class="{% if request.path == '/dashboard/comments/' %}active{% endif %}">
                     نظرات کاربران
                 </a>
             </li>
@@ -27,8 +27,9 @@
                 </a>
             </li>
             <li>
-                <a href="#" class="{% if request.path == '/dashboard/posts/' %}active{% endif %}">
-                    پست‌ها
+                <a href="{% url 'create-post' %}"
+                   class="{% if request.path == '/dashboard/create-post/' %}active{% endif %}">
+                    ایجاد پست جدید
                 </a>
             </li>
         </ul>

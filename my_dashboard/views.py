@@ -1,4 +1,5 @@
-from django.shortcuts import render
+import datetime
+from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.views.generic import ListView, View, DetailView
 from django.shortcuts import redirect
@@ -7,6 +8,7 @@ from django.contrib import messages
 from make_qrcode.models import QRCode
 from gallery.models import TreeImage
 from .forms import TreeImageUploadForm
+from blog.models import Comment
 
 
 class UnapprovedImagesView(ListView):
@@ -75,9 +77,34 @@ class TreeDetailView(DetailView):
         return redirect("tree-detail", unique_id=tree.unique_id)
 
 
+class CommentsListView(View):
+
+    def get(self, request):
+        comments = Comment.objects.all().order_by('-date')  # مرتب‌سازی بر اساس تاریخ جدیدتر
+        return render(request, 'dashboard/temp.html', {'comments': comments})
+
+    def post(self, request):
+        comment_id = request.POST.get('comment_id')
+        action = request.POST.get('action')
+        comment = get_object_or_404(Comment, id=comment_id)
+
+        if action == "approve":
+            comment.is_active = True
+        elif action == "disapprove":
+            comment.is_active = False
+        elif action == "reply":
+            reply_text = request.POST.get('reply_text')
+            comment.admin_reply = reply_text
+            comment.reply_date = datetime.datetime.now()
+        comment.save()
+
+        return redirect('comments-list')
+
+
 @login_required
 def user_dashboard(request):
     active_trees = QRCode.objects.filter(is_registered=True).count()
     trees_pic = TreeImage.objects.all().count()
-    context = {'active_trees': active_trees, 'trees_pic': trees_pic}
+    comment_count = Comment.objects.all().count()
+    context = {'active_trees': active_trees, 'trees_pic': trees_pic, 'comment_count': comment_count}
     return render(request, './dashboard/user-dashboard.html', context)

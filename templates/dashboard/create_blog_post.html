@@ -1,0 +1,65 @@
+{% extends 'shared/_MainLayOut.html' %}
+{% load static %}
+
+{% block content %}
+    <section>
+        <div class="admin-panel">
+            {% include 'dashboard/_SideBar.html' %}
+
+            <div class="container mt-4">
+                <div class="row justify-content-center">
+                    <div class="col-md-10">
+                        <div class="card shadow-sm rounded-sm">
+                            <div class="card-header bg-primary text-white text-center">
+                                <h4>ایجاد مطلب جدید 📝</h4>
+                            </div>
+                            <div class="card-body">
+                                <form method="post" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    {{ form.media }}
+
+                                    <div class="form-group">
+                                        <label for="{{ form.title.id_for_label }}" class="font-weight-bold">📌
+                                            عنوان</label>
+                                        {{ form.title }}
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="{{ form.category.id_for_label }}" class="font-weight-bold">📂
+                                            دسته‌بندی</label>
+                                        {{ form.category }}
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="{{ form.image.id_for_label }}" class="font-weight-bold">🖼
+                                            تصویر</label>
+                                        {{ form.image }}
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="{{ form.description.id_for_label }}" class="font-weight-bold">📝
+                                            توضیحات</label>
+                                        {{ form.description }}
+                                    </div>
+
+                                    {#                                    <div class="form-group">#}
+                                    <div>
+                                        <label for="{{ form.text.id_for_label }}" class="font-weight-bold">📖 متن
+                                            خبر</label>
+                                        <div style="direction: rtl; text-align: right;">
+                                            {{ form.text }}
+                                        </div>
+                                    </div>
+
+                                    <div class="text-center">
+                                        <button type="submit" class="btn btn-success px-4 py-2 mt-2">📤 ارسال مطلب
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

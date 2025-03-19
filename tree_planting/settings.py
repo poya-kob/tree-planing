@@ -36,7 +36,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # installed apps
+    'django_ckeditor_5',
     # 'ckeditor',
+    # 'ckeditor_uploader',
     # my apps
     'make_qrcode',
     'my_users',
@@ -58,8 +60,64 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'tree_planting.urls'
-# CKEDITOR_UPLOAD_PATH = "uploads/"
+DJANGO_CKEDITOR_5_CONFIGS = {
+    # CKEDITOR_5_CONFIGS = {
+    'default': {
+        'language': 'fa',
+        'toolbar': [
+            {'name': 'basic', 'items': ['bold', 'italic', 'underline', 'strike', 'link']},
+            {'name': 'paragraph', 'items': ['numberedList', 'bulletedList', 'alignment']},
+            {'name': 'insert', 'items': ['imageUpload', 'blockQuote', 'codeBlock', 'horizontalLine']},
+        ],
+        'extraPlugins': ["imageUpload"],
+    },
+}
 
+CKEDITOR_5_CONFIGS = {
+    'default': {
+        'language': 'fa',
+        'editorConfig': {
+            'defaultLanguage': 'fa',
+            'direction': 'rtl',  # تنظیم جهت متن روی راست به چپ
+        },
+        'toolbar': {
+            'items': ['heading', '|', 'bold', 'italic', 'link',
+                      'bulletedList', 'numberedList', 'blockQuote', 'imageUpload', ],
+        }
+
+    },
+    'extends': {
+        'language': 'fa',
+        'editorConfig': {
+            'defaultLanguage': 'fa',
+            'direction': 'rtl',  # تنظیم جهت متن روی راست به چپ
+        },
+        'blockToolbar': [
+            'paragraph', 'heading1', 'heading2', 'heading3',
+            '|',
+            'bulletedList', 'numberedList',
+            '|',
+            'blockQuote',
+        ],
+        'toolbar': {
+            'items': ['alignment','heading', '|', 'outdent', 'indent', '|', 'bold', 'italic', 'link', 'underline', 'strikethrough',
+                      'code', 'subscript', 'superscript', 'highlight', '|', 'codeBlock', 'sourceEditing', 'insertImage',
+                      'bulletedList', 'numberedList', 'todoList', '|', 'blockQuote', 'imageUpload', '|',
+                      'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor', 'mediaEmbed', 'removeFormat',
+                      'insertTable',
+                      ],
+            'shouldNotGroupWhenFull': True
+        },
+
+    },
+    'list': {
+        'properties': {
+            'styles': 'true',
+            'startIndex': 'true',
+            'reversed': 'true',
+        }
+    }
+}
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -128,6 +186,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [(
         BASE_DIR / 'static/')
 ]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 

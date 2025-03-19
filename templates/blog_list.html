@@ -3,84 +3,70 @@
 
 
 {% block content %}
-    <section class="pageBanner" style="background-image: url({% static 'assets/images/bg/banner.png' %});">
-        <div class="vmiddle">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-8 offset-lg-2 text-center">
-                        <h2 class="banner-title">پست وبلاگ</h2>
-                        <p class="banner-desc">تیم همه کاره ما متشکل از طراحان، توسعه دهندگان و بازاریابان دیجیتال است
-                            که همگی تجربه منحصر به فردی را به ارمغان می آورند</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
     <section class="blogPage02">
         <div class="SecLayerimg move_anim"><img src="{% static 'assets/images/bg/s33.png' %}" alt=""></div>
         <div class="container">
             <div class="row">
                 <div class="col-lg-4">
                     <div class="sidebar lsb">
-                        <aside class="widget widget_search">
-                            <h3 class="widget_title">جستجو کردن</h3>
-                            <form method="get" action="#" class="search_form"><input type="search" name="s" id="s"
-                                                                                     placeholder="جستجو کردن">
-                                <button type="submit"><i class="dgita-loupe"></i></button>
-                            </form>
-                        </aside>
                         <div class="widget widget_categories">
                             <h3 class="widget_title">دسته بندی ها</h3>
                             <ul>
-                                <li><a href="blog1.html">طرح</a>(10)</li>
-                                <li><a href="blog1.html">بازاریابی دیجیتال</a>(01)</li>
-                                <li><a href="blog1.html">توسعه</a>(11)</li>
-                                <li><a href="blog1.html">علوم پایه</a>(02)</li>
-                                <li><a href="blog1.html">دیگر</a>(02)</li>
+                                {% for category in categories %}
+                                    <li>
+                                        <a href="{% url 'blog_list_by_category' category.id %}">{{ category.title }}</a>
+                                        ({{ category.blogs.all.count }})
+                                    </li>
+                                {% endfor %}
                             </ul>
                         </div>
                         <aside class="widget">
-                            <h3 class="widget_title">پست های محبوب</h3>
-                            <div class="pp_post_item"><img src="{% static 'assets/images/blog/t1.jpg' %}" alt=""><span>25 جولای
-                                    2021</span><a href="single-blog.html">چگونه با داده ها استراتژی بسازیم</a></div>
-                            <div class="pp_post_item"><img src="{% static 'assets/images/blog/t2.jpg' %}" alt=""><span>25 جولای
-                                    2021</span><a href="single-blog.html">بهینه سازی نرخ تبدیل چیست؟</a></div>
-                            <div class="pp_post_item"><img src="{% static 'assets/images/blog/t3.jpg' %}" alt=""><span>25 جولای
-                                    2021</span><a href="single-blog.html">بهینه سازی جستجوی پولی و PPC | مقررات</a>
-                            </div>
                         </aside>
                         <div class="widget">
-                            <h3 class="widget_title">کلمه کلیدی</h3>
-                            <div class="tagcloud"><a href="blog1.html">بازار یابی</a><a href="blog1.html">مشاوره</a><a
-                                    href="blog1.html">اجتماعی</a><a href="blog1.html">دیجیتال</a><a
-                                    href="blog1.html">طرح کسب و کار</a></div>
                         </div>
                     </div>
                 </div>
+
                 <div class="col-lg-8">
                     <div class="row">
                         {% for blog in blogs %}
                             <div class="col-md-6">
-                                <div class="blogItem02"><img src="{% static 'assets/images/blog/1.jpg' %}" alt=""/><a
-                                        href="{% url 'blogs-detail' blog_id=blog.id %}">بازاریابی دیجیتال</a>
+                                <div class="blogItem02"><img src="{{ blog.image.url }}" alt=""/>
+                                    <a href="{% url 'blogs-detail' blog.id %}">{{ blog.title }}</a>
                                     <div class="blogContent">
-                                        <div class="bpmeta"><a href="{% url 'blogs-detail' blog_id=blog.id %}">1 ژوئیه
-                                            2021</a><a href="{% url 'blogs-detail' blog_id=blog.id %}">02 نظر
-                                            بدهید</a></div>
-                                        <h3><a href="{% url 'blogs-detail' blog_id=blog.id %}">چگونه خلاصه خلاقانه کامل
-                                            بنویسیم</a></h3>
+                                        <div class="bpmeta">
+                                            <a href="{% url 'blogs-detail' blog.id %}">{{ blog.date.date }}</a>
+                                            <a href="{% url 'blogs-detail' blog.id %}">02 نظر</a>
+                                        </div>
+                                        <h3>
+                                            <a href="{% url 'blogs-detail' blog.id %}">{{ blog.description }}</a>
+                                        </h3>
                                     </div>
                                 </div>
                             </div>
+                            </div>
+                            <!-- صفحه‌بندی -->
+                            {% if page_obj.has_other_pages %}
+                                <div class="pagination">
+                                    {% if page_obj.has_previous %}
+                                        <a href="?page=1&status={{ request.GET.status }}" class="page-link prev">«</a>
+                                        <a href="?page={{ page_obj.previous_page_number }}&status={{ request.GET.status }}"
+                                           class="page-link prev">قبلی</a>
+                                    {% endif %}
+
+                                    <div class="page-numbers">
+                                        <span class="active">{{ page_obj.number }}</span>
+                                    </div>
+
+                                    {% if page_obj.has_next %}
+                                        <a href="?page={{ page_obj.next_page_number }}&status={{ request.GET.status }}"
+                                           class="page-link next">بعدی</a>
+                                        <a href="?page={{ page_obj.paginator.num_pages }}&status={{ request.GET.status }}"
+                                           class="page-link next">»</a>
+                                    {% endif %}
+                                </div>
+                            {% endif %}
                         {% endfor %}
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="dgita_pagination text-center"><span class="current">1</span><a
-                                    href="blog2.html">2</a><a href="blog2.html">3</a><a href="blog2.html">4</a><a
-                                    class="next" href="blog2.html">بعد</a></div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>

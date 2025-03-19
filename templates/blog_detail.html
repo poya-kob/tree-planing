@@ -7,10 +7,10 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12 text-center">
-                        <div class="postAuthor"><img src="{% static 'assets/images/blog/1.png' %}" alt=""/>
-                            <p>محفوظ ریاد</p><span>تاریخ انتشار: ۲۲ جولای ۲۰۲۱</span>
+                        <div class="postAuthor">
+                            <p></p><span>تاریخ انتشار: {{ blog.date.date }}</span>
                         </div>
-                        <h2 class="banner-title">افزایش دسترسی و تعامل برای ابزارهای ذهنی</h2>
+                        <h2 class="banner-title">{{ blog.title }}</h2>
                     </div>
                 </div>
             </div>
@@ -19,156 +19,75 @@
     <section class="singleBlog">
         <div class="container">
             <div class="row">
-                <div class="col-lg-4">
-                    <div class="sidebar">
-                        <aside class="widget widget_search">
-                            <h3 class="widget_title">جستجو کردن</h3>
-                            <form method="get" action="#" class="search_form"><input type="search" name="s" id="s"
-                                                                                     placeholder="جستجو کردن">
-                                <button type="submit"><i class="dgita-loupe"></i></button>
-                            </form>
-                        </aside>
-                        <div class="widget widget_categories">
-                            <h3 class="widget_title">دسته بندی ها</h3>
-                            <ul>
-                                <li><a href="blog1.html">طرح</a>(10)</li>
-                                <li><a href="blog1.html">بازاریابی دیجیتال</a>(01)</li>
-                                <li><a href="blog1.html">توسعه</a>(11)</li>
-                                <li><a href="blog1.html">علوم پایه</a>(02)</li>
-                                <li><a href="blog1.html">دیگر</a>(02)</li>
-                            </ul>
-                        </div>
-                        <aside class="widget">
-                            <h3 class="widget_title">پست های محبوب</h3>
-                            <div class="pp_post_item"><img src="{% static 'assets/images/blog/t1.jpg' %}" alt=""><span>25 جولای
-                                    2021</span><a href="single-blog.html">چگونه با داده ها استراتژی بسازیم</a></div>
-                            <div class="pp_post_item"><img src="{% static 'assets/images/blog/t2.jpg' %}" alt=""><span>25 جولای
-                                    2021</span><a href="single-blog.html">بهینه سازی نرخ تبدیل چیست؟</a></div>
-                            <div class="pp_post_item"><img src="{% static 'assets/images/blog/t3.jpg' %}" alt=""><span>25 جولای
-                                    2021</span><a href="single-blog.html">بهینه سازی جستجوی پولی و PPC | مقررات</a>
-                            </div>
-                        </aside>
-                        <div class="widget">
-                            <h3 class="widget_title">کلمه کلیدی</h3>
-                            <div class="tagcloud"><a href="blog1.html">بازار یابی</a><a href="blog1.html">مشاوره</a><a
-                                    href="blog1.html">اجتماعی</a><a href="blog1.html">دیجیتال</a><a
-                                    href="blog1.html">طرح کسب و کار</a></div>
-                        </div>
-                    </div>
-                </div>
+                <div class="col-lg-2"></div>
                 <div class="col-lg-8">
                     <div class="sic_the_content clearfix">
-                        <p>لورم ایوم متن ساختگی با تولید آسان نامفهوم از صنعت چاپ با استفاده از طراحان گرافیک است.
-                            چاپگرها و متون بلکه روزنامه و در ستون و سطرآنان است که لازم است و برای شرایط فعلی تکنولوژی
-                            مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. کتابهای زیادی در شصت و سه
-                            درصد گذشته، حال و آینده شناخت جامعه و متخ</p>
-                        <figure class="wp-block-image"><img src="{% static 'assets/images/blog/post.jpg' %}" alt=""></figure>
-                        <p>لورم ایوم متن ساختگی با تولید آسان نامفهوم از صنعت چاپ با استفاده از طراحان گرافیک است.
-                            چاپگرها و متون بلکه روزنامه و در ستون و سطرآنان است که لازم است و برای شرایط فعلی تکنولوژی
-                            مورد نیاز و مجله های متنوع مورد نیاز است.</p>
-                        <p>لورم ایوم متن ساختگی با تولید آسان نامفهوم از صنعت چاپ با استفاده از طراحان گرافیک است.
-                            چاپگرها و متون بلکه روزنامه و در ستون و سطرآنان که لازم است و برای شرایط فعلی نیاز به نیاز و
-                            کار مجله است.</p>
-                        <blockquote class="wp-block-quote">
-                            <p>لورم ایوم متن ساختگی با تولید آسان نامفهوم از صنعت چاپ با استفاده از طراحان گرافیک است.
-                                چاپگرها و متون بلکه روزنامه و مجله</p><cite>حیدرخان</cite>
-                        </blockquote>
-                        <h2 class="lstitle">مجموعه داستان های موفقیت B2B ما را کاوش کنید</h2>
-                        <p>لورم ایوم متن ساختگی با تولید آسان نامفهوم از صنعت چاپ با استفاده از طراحان گرافیک است.
-                            چاپگرها و متون بلکه روزنامه و در ستون و سطرآنان که لازم است و برای شرایط فعلی نیاز به نیاز و
-                            کار مجله است.</p>
-                        <p>لورم ایوم متن ساختگی با تولید آسان نامفهوم از صنعت چاپ با استفاده از طراحان گرافیک است.
-                            چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای</p>
-                        <p>لورم ایوم متن ساختگی با تولید آسان نامفهوم از صنعت چاپ با استفاده از طراحان گرافیک است.
-                            چاپگرها و متون بلکه روزنامه و در ستون و سطرآنان است که لازم است و برای شرایط فعلی تکنولوژی
-                            مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. کتابهای زیادی در شصت و سه
-                            درصد</p>
+                        {{ blog.text|safe }}
                     </div>
-                    <div class="spMeta clearfix">
-                        <div class="row">
-                            <div class="col-md-8">
-                                <div class="tags clearfix"><a href="blog1.html">دیجیتال</a><a href="blog1.html">طرح کسب
-                                    و کار</a><a href="blog1.html">سئو</a></div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="socialShare"><a class="twi" href="javascript:void(0);"><i
-                                        class="twi-twitter"></i></a><a class="pin" href="javascript:void(0);"><i
-                                        class="twi-pinterest-p"></i></a><a class="fac" href="javascript:void(0);"><i
-                                        class="twi-facebook-f"></i></a><a class="dri" href="javascript:void(0);"><i
-                                        class="twi-dribbble"></i></a></div>
-                            </div>
-                        </div>
-                    </div>
+
                     <div class="postPagination">
                         <div class="row">
-                            <div class="col-md-6"><a class="prev" href="single-blog.html"><i
-                                    class="twi-chevron-left2"></i><span>پست قبلی</span>روندهای بازاریابی دیجیتال
-                                2021 بر اساس 21 SEO</a></div>
-                            <div class="col-md-6"><a class="next" href="single-blog.html"><i
-                                    class="twi-chevron-right2"></i><span>پست بعدی</span>سیاست های مادری و
-                                فرزندخواندگی ما</a></div>
+                            <div class="col-md-6">
+                                {% if previous %}
+                                    <a class="prev" href="{% url 'blogs-detail' previous.id %}"><i
+                                            class="twi-chevron-left2"></i><span>پست قبلی</span>{{ previous.title }}</a>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-6">
+                                {% if next %}
+                                    <a class="next" href="{% url 'blogs-detail' next.id %}"><i
+                                            class="twi-chevron-right2"></i><span>پست بعدی</span>{{ next.title }}</a>
+                                {% endif %}
+                            </div>
                         </div>
                     </div>
                     <div class="comment_area">
                         <div class="sic_comments">
-                            <h3 class="sicc_title">3 نظر</h3>
-                            <ol class="sicc_list">
-                                <li>
-                                    <article class="single_comment clearfix "><img src="{% static 'assets/images/blog/c1.jpg' %}"
-                                                                                   alt="Amy Burton">
-                                        <h4 class="cm_author"><a href="javascript:void(0);">محفوظ ریاد</a></h4><span
-                                                class="cm_date">4 هفته</span>
-                                        <div class="sc_content">
-                                            <p>استراتژی فناوری و نقشه راه برای اجرای آن؟ رهبران صاحب داده های خود هستند،
-                                                تازه کردن.</p>
-                                        </div>
-                                        <a class="comment-reply-link" href="javascript:void(0);"><i
-                                                class="twi-reply2"></i>پاسخ</a>
-                                    </article>
-                                    <ol class="children">
-                                        <li>
-                                            <article class="single_comment clearfix "><img
-                                                    src="{% static 'assets/images/blog/c1.jpg' %}" alt="Amy Burton">
-                                                <h4 class="cm_author"><a href="javascript:void(0);">محفوظ ریاد</a></h4>
-                                                <span class="cm_date">4 هفته</span>
-                                                <div class="sc_content">
-                                                    <p>استراتژی فناوری و نقشه راه برای اجرای آن؟ رهبران صاحب خود هستند.
-                                                    </p>
-                                                </div>
-                                                <a class="comment-reply-link" href="javascript:void(0);"><i
-                                                        class="twi-reply2"></i>پاسخ</a>
-                                            </article>
-                                        </li>
-                                    </ol>
-                                </li>
-                                <li>
-                                    <article class="single_comment clearfix "><img src="{%static 'assets/images/blog/c1.jpg' %}"
-                                                                                   alt="Amy Burton">
-                                        <h4 class="cm_author"><a href="javascript:void(0);">محفوظ ریاد</a></h4><span
-                                                class="cm_date">4 هفته</span>
-                                        <div class="sc_content">
-                                            <p>استراتژی فناوری و نقشه راه برای اجرای آن؟ رهبران صاحب داده های خود هستند،
-                                                تازه کردن.</p>
-                                        </div>
-                                        <a class="comment-reply-link" href="javascript:void(0);"><i
-                                                class="twi-reply2"></i>پاسخ</a>
-                                    </article>
-                                </li>
-                            </ol>
+                            {% for comment in comments %}
+                                <h3 class="sicc_title">{{ comments.count }} نظر</h3>
+                                <ol class="sicc_list">
+                                    <li>
+                                        <article class="single_comment clearfix "><img
+                                                src="{% static 'assets/images/blog/c1.jpg' %}"
+                                                alt="Amy Burton">
+                                            <h4 class="cm_author"><a href="javascript:void(0);">{{ comment.name }}</a>
+                                            </h4><span
+                                                    class="cm_date">{{ comment.date }}</span>
+                                            <div class="sc_content">
+                                                <p>{{ comment.text }}</p>
+                                            </div>
+                                        </article>
+                                        {% if comment.admin_reply %}
+                                            <ol class="children">
+                                                <li>
+                                                    <article class="single_comment clearfix ">
+                                                        <h4 class="cm_author"><a href="javascript:void(0);">ادمین</a>
+                                                        </h4>
+                                                        <span class="cm_date">{{ comment.reply_date }}</span>
+                                                        <div class="sc_content">
+                                                            <p>{{ comment.admin_reply }}</p>
+                                                        </div>
+                                                    </article>
+                                                </li>
+                                            </ol>
+                                        {% endif %}
+                                    </li>
+                                </ol>
+                            {% empty %}
+                                <h3 class="sicc_title">هیچ نظری برای این پست ثبت نگردیده.</h3>
+                            {% endfor %}
                         </div>
                         <div class="commentForm">
                             <h3 class="sicc_title">پیام بگذارید</h3>
-                            <form action="#" method="post" class="row">
-                                <div class="col-md-6"><input placeholder="اسم شما" name="author" type="text"></div>
-                                <div class="col-md-6"><input placeholder="آدرس ایمیل" name="email" type="email"></div>
-                                <div class="col-md-12"><input placeholder="سایت اینترنتی" name="website" type="url">
-                                </div>
-                                <div class="col-md-12"><textarea name="comment"
-                                                                 placeholder="نظر خود را بنویسید"></textarea></div>
+                            <form action="{% url 'blogs-detail' blog.id %}" method="post" class="row">
+                                {% csrf_token %}
+                                <div class="col-md-6">{{ comment_form.name }}</div>
+                                <div class="col-md-6">{{ comment_form.email }}</div>
+                                <div class="col-md-12">{{ comment_form.text }}</div>
                                 <div class="col-md-8">
-                                    <p class="comment-form-cookies-consent"><input id="wp-comment-cookies-consent"
-                                                                                   name="wp-comment-cookies-consent"
-                                                                                   type="checkbox" value="yes"><label
+                                    <p class="comment-form-cookies-consent">
+                                        <input id="wp-comment-cookies-consent" name="wp-comment-cookies-consent"
+                                               type="checkbox" value="yes"><label
                                             for="wp-comment-cookies-consent">من موافقت می کنم که داده های ارسالی من جمع
                                         آوری و ذخیره می شود.*</label></p>
                                 </div>
@@ -181,7 +100,7 @@
                         </div>
                     </div>
                 </div>
-
+                <div class="col-lg-2"></div>
             </div>
         </div>
     </section>
