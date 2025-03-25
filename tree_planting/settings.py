@@ -56,10 +56,15 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     # my middlewares
-    'gallery.middlewares.RandomGalleryMiddleware'
+    'gallery.middlewares.RandomGalleryMiddleware',
+    'my_dashboard.middlewares.LoginRequiredMiddleware',
 ]
 
 ROOT_URLCONF = 'tree_planting.urls'
+LOGIN_REQUIRED_URLS = (
+    r'^/dashboard/.*$',  # همه‌ی مسیرهای داخل /dashboard/ نیاز به لاگین دارند
+)
+LOGIN_REDIRECT_URL = '/'
 DJANGO_CKEDITOR_5_CONFIGS = {
     # CKEDITOR_5_CONFIGS = {
     'default': {
@@ -100,7 +105,8 @@ CKEDITOR_5_CONFIGS = {
             'blockQuote',
         ],
         'toolbar': {
-            'items': ['alignment','heading', '|', 'outdent', 'indent', '|', 'bold', 'italic', 'link', 'underline', 'strikethrough',
+            'items': ['alignment', 'heading', '|', 'outdent', 'indent', '|', 'bold', 'italic', 'link', 'underline',
+                      'strikethrough',
                       'code', 'subscript', 'superscript', 'highlight', '|', 'codeBlock', 'sourceEditing', 'insertImage',
                       'bulletedList', 'numberedList', 'todoList', '|', 'blockQuote', 'imageUpload', '|',
                       'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor', 'mediaEmbed', 'removeFormat',
